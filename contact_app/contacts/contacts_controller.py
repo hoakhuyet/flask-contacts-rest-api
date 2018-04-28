@@ -1,7 +1,8 @@
 from flask import abort
 from flask_sqlalchemy import orm
-from contact_app.contacts.contacts_model import Contacts
-from contact_app.dbconnect import db
+from .contacts_model import Contacts
+from dbconnect import db
+# from contact_app.dbconnect import db
 
 
 class ContactController:

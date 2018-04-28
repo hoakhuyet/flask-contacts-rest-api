@@ -1,7 +1,7 @@
 from flask import Blueprint, json, jsonify, request
 from flask_restful import Resource, Api, reqparse
-from contact_app.contacts.contacts_controller import ContactController
-from contact_app.contacts.contacts_model import Contacts
+from .contacts_controller import ContactController
+from .contacts_model import Contacts
 
 bp_contact = Blueprint('contacts', __name__)
 api_contact = Api(bp_contact)

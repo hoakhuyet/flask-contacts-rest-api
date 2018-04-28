@@ -1,10 +1,9 @@
 from flask import Flask, render_template
 from flask_restful import Api
 from flask_cors import CORS
-from contact_app import settings
-# import settings
-from contact_app.dbconnect import db
-from contact_app.contacts.contacts_api import bp_contact
+import settings
+from dbconnect import db
+from contacts.contacts_api import bp_contact
 
 app = Flask(__name__)
 api = Api(app)

@@ -1,4 +1,4 @@
-from contact_app.dbconnect import db
+from dbconnect import db
 
 
 class Contacts(db.Model):
