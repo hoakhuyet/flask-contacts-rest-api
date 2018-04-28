@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QueuePost</title>
+     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/mystyle.css">
+    <script src="../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(function() {
+             $('#contact_id').on('change', function() {
+                //console.log('aaa');
+                var contact_id = $('#contact_id').val();
+                 var ani_api_url = "http://127.0.0.1:5008";
+                 var my_url = ani_api_url + "/demo-api/contacts/" + contact_id;
+                 $.ajax({
+                    url: my_url,
+                    contentType: "application/json; charset=utf-8",
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+                    success: function (res) {
+                  //     console.log(res);
+                       $('#txtData').val(res);
+
+                    },
+                    error: function (log) {
+                       console.log("Error");
+                    }
+                });
+             });
+
+
+             $('#submit').click(function () {
+                 var data = {"data":$('#txtData').val()};
+                 console.log(data);
+                 var ani_api_url = "https://127.0.0.1:5008";
+                 var my_url = ani_api_url + "/demo-api/contacts/";
+                 $.ajax({
+                        url: my_url,
+                        //contentType: "application/json; charset=utf-8",
+                        type: "POST",
+                        data: data,
+                        dataType:'json',
+                        success: function (response) {
+                            console.log("ok", response);
+                        },
+                        error: function(error){
+                            console.log("Something went wrong", error);
+                        }
+                 });
+             });
+        });
+    </script>
+</head>
+<body>
+    <br/> <br/>
+    <div class="container">
+            <div class="row">
+                  <div class="col-md-offset-1 col-md-11">
+                    <select name="contact_id" id="contact_id">
+                            <option value="0">----------------------</option>
+                        {% for contact in contacts %}
+                            <option value="{{ contact.contact_id }}">{{ contact.contact_id }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br/><br/><br/>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-11" >
+                    <textarea class="form-control" rows="10" id="txtData" name="txtData" ></textarea>
+                </div>
+            </div>
+                <br/> <br/> <br/>
+             <div class="row">
+                <div class="col-md-offset-1 col-md-11">
+                        <button id="submit" type="button" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Post to ANI</span>
+                </button>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
