@@ -1,0 +1,88 @@
+    {% extends "contacts/layout.html" %}
+
+    {% block body %}
+
+        <section class="content">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              	<center>
+	              	<h3 class="box-title">Update Contact</h3>
+	            </center>
+            </div>
+
+            <form class="form-horizontal">
+            
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Name</label>
+
+                  <div class="col-sm-10">
+                    <input id="name" name="name" value="{{ data['Name'] }}" type="text" class="form-control" placeholder="Name" autocomplete="off" required>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Phone Number</label>
+
+                  <div class="col-sm-10">
+                    <input id="phone" name="phone" value="{{ data['Phone'] }}" type="text" class="form-control" placeholder="Phone Number" autocomplete="off" required>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Address</label>
+
+                  <div class="col-sm-10">
+                    <input id="address" name="address" value="{{ data['Address']  }}" type="text" class="form-control" placeholder="Address" autocomplete="off" required>
+                  </div>
+                </div>
+                <div class="form-group" style="display: none">
+                  <label class="col-sm-2 control-label"></label>
+                  <div class="col-sm-10">
+                    <input id="contact_id" name="contact_id" value="{{ data['Contact_id']  }}" type="text" class="form-control"  autocomplete="off" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="box-footer">
+                <a href="/contacts/"><button type="button" class="btn btn-default">Cancel</button></a>
+                  <button name="update" id="update" type="button" class="btn btn-info pull-right">Update</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <script>
+        $(function() {
+            function get_contact_info() {
+                var data = {}
+                data["name"] =  $('#name').val();
+                data["phone"] =  $('#phone').val();
+                data["address"] =  $('#address').val();
+                return data;
+            }
+
+            $('#update').click(function() {
+                var contact = JSON.stringify(get_contact_info());
+                var data =JSON.stringify({data: contact});
+                var contact_id = $('#contact_id').val();
+                var api_url = "http://127.0.0.1:5008";
+                var my_url = api_url + "/contact-api/contacts/" + contact_id;
+                console.log(my_url);
+                $.ajax({
+                    url: my_url,
+                    contentType: "application/json; charset=utf-8",
+                    type: "PUT",
+                    data: data,
+                    dataType:'json',
+                    success: function (response) {
+                        console.log("ok", response);
+                    },
+                    error: function(error){
+                        console.log("Something went wrong", error);
+                    }
+                });
+            });
+        });
+        </script>
+    {% endblock %}

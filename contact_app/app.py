@@ -10,9 +10,7 @@ api = Api(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + settings.DB_PATH
 db.init_app(app)
 
-cors = CORS(app, resources={r"/hr-api/*": {"origins": "*"}})
-
-
+cors = CORS(app, resources={r"/contact-api/*": {"origins": "*"}})
 app.register_blueprint(bp_contact, url_prefix="/contact-api")
 
 

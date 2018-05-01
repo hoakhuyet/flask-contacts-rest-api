@@ -1,0 +1,58 @@
+    {% extends "contacts/layout.html" %}
+    {% block body %}
+    <script>
+       $(function(){
+          $("#delete").click( function(){
+            return confirm("Bạn có muốn xoá không ?");
+          });
+      });
+    </script>
+        <section class="content">
+          <div class="box box-info">
+            <div class="box-header with-border">
+            	<center>
+            		<h3 class="box-title">Delete Contact</h3>
+            	</center>
+            </div>
+
+            <form class="form-horizontal" method="POST" action="/contacts/deletecontact">
+                  <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Name</label>
+
+                  <div class="col-sm-10">
+                    <input id="name" name="name" value="{{ data['Name'] }}" type="text" class="form-control" placeholder="Name" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Phone Number</label>
+
+                  <div class="col-sm-10">
+                    <input id="phone" name="phone" value="{{ data['Phone'] }}" type="text" class="form-control" placeholder="Phone Number" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Address</label>
+
+                  <div class="col-sm-10">
+                    <input id="address" name="address" value="{{ data['Address']  }}" type="text" class="form-control" placeholder="Address" autocomplete="off" required>
+                  </div>
+                </div>
+                <div class="form-group" style="display: none">
+                  <label class="col-sm-2 control-label"></label>
+                  <div class="col-sm-10">
+                    <input id="contact_id" name="contact_id" value="{{ data['Contact_id']  }}" type="text" class="form-control"  autocomplete="off" required>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="box-footer">
+                <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
+                <input name="delete" id="delete" type="submit" class="btn btn-info pull-right" value="Delete">
+              </div>
+            </form>
+          </div>
+        </section>
+    {% endblock %}

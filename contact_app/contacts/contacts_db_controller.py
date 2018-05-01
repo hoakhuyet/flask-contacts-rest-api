@@ -2,7 +2,6 @@ from flask import abort
 from flask_sqlalchemy import orm
 from .contacts_model import Contacts
 from dbconnect import db
-# from contact_app.dbconnect import db
 
 
 class ContactController:
@@ -10,16 +9,11 @@ class ContactController:
         pass
 
     def get_contact_by_contact_id(self, contact_id):
-        try:
-            base_query_transaction = db.session().query(Contacts).filter_by(contact_id=contact_id)
-            if len(base_query_transaction.all()) > 0:
-                return base_query_transaction[0]
-            else:
-                raise abort(404, "contact_app not found")
-                # return None
-        except Exception as ex:
-            abort(500, "internal server error")
-            return None
+        base_query_transaction = db.session().query(Contacts).filter_by(contact_id=contact_id)
+        if len(base_query_transaction.all()) > 0:
+            return base_query_transaction[0]
+        else:
+            raise abort(404, "contact not found")
 
     def get_all_contact(self, limit=0):
         try:
@@ -39,7 +33,6 @@ class ContactController:
         except Exception as ex:
             db.session.rollback()
             return False
-            # abort(500, ex.__str__())
 
     def update_contact(self, contact):
         try:

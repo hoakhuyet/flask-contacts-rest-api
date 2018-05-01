@@ -1,6 +1,6 @@
 from flask import Blueprint, json, jsonify, request
 from flask_restful import Resource, Api, reqparse
-from .contacts_controller import ContactController
+from .contacts_db_controller import ContactController
 from .contacts_model import Contacts
 
 bp_contact = Blueprint('contacts', __name__)
@@ -18,29 +18,43 @@ class ContactsAPI(Resource):
         return jsonify(contact.get_dict_obj())
 
     def put(self, contact_id):
+        """
+        update contact with data args: {"data" : {"name":"xxx", "phone":"yyy", "address":"zzz"}}
+        :param contact_id:
+        :return:
+        """
+        # j_data = request.args.get("data")
+        # json_data = request.get_json()
+        # print("json_data", json_data)
         args = PARSER.parse_args()
+        # print("args", args)
         data = args['data']
+        # print("put", data)
+        # print("type", type(data))
         dict_data = json.loads(data)
         controller = ContactController()
         contact = controller.get_contact_by_contact_id(contact_id)
         contact.set_data_form_dict(dict_data)
-        # contact = Contacts(0, dict_data['name'], dict_data['phone'], dict_data['address'])
         controller = ContactController()
         if controller.update_contact(contact):
-            return "update susscess", 200
+            return "update susscess", 201
         else:
             return "update fail", 503
 
     def delete(self, contact_id):
         controller = ContactController()
         if controller.delete_contact(contact_id):
-            return "delete susscess", 200
+            return "delete susscess", 201
         else:
-            return "delete fail", 200
+            return "delete fail", 503
 
 
 class ContactsListAPI(Resource):
     def post(self):
+        """
+        create contact with data args: {"data" : {"name":"xxx", "phone":"yyy", "address":"zzz"}}
+        :return:
+        """
         args = PARSER.parse_args()
         data = args['data']
         dict_data = json.loads(data)
