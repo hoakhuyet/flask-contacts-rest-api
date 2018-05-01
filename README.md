@@ -20,13 +20,11 @@ HR application
     dbconnect package
         __init__.py
     database folder
-    users package
-        users_model
-        users_controller
-        users_api
-        users_view
-
-    departments package
+    contacts package
+        contacts_model
+        contacts_controller
+        contacts_api
+        contacts_view
     ....
 ```
 
@@ -37,14 +35,14 @@ HR application
 ```Python
 from flask_sqlalchemy import SQLAlchemy
 
-database = SQLAlchemy()
+db = SQLAlchemy()
 
 ```
 
 >app.py
 ```Python
 import settings
-from dbconnect import database
+from dbconnect import db
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + settings.DB_PATH
@@ -52,22 +50,15 @@ database.init_app(app)
 
 ```
 
-**Bước 4:** Xây dựng end-point: users_api
+**Bước 4:** Xây dựng end-point: contacts_api
 End-point được design dưới dạng:
 
-/hr-api/users/<user_id>
+/contact-api/contacts/<contact_id>
+-  get_contact
+-  put_contact
+-  delete_contact
 
-/hr-api/users/
-
-Bao gồm các function:
-
-get_user
-
-get_users
-
-put_user
-
-post_user
-
-delete_user
+/contact-api/contacts/
+- get_contacts
+- post_contact
 

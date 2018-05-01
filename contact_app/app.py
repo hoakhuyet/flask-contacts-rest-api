@@ -13,7 +13,7 @@ db.init_app(app)
 cors = CORS(app, resources={r"/hr-api/*": {"origins": "*"}})
 
 
-app.register_blueprint(bp_contact, url_prefix="/demo-api")
+app.register_blueprint(bp_contact, url_prefix="/contact-api")
 
 
 @app.route("/")
